@@ -1,0 +1,90 @@
+<html>
+	<head>
+		<title> Captcha </title>
+		<style>
+			#captcha
+			{
+				width:200px;
+				height:30px;
+				padding:15px;
+				background-image:url('cc.jpg');
+				color:black;
+				font-family:'Buxton Sketch';
+				font-size:30px;
+				letter-spacing:10px;
+				line-height:30px;
+				text-align:center;
+				font-weight:bold;
+				text-decoration:line-through;
+				position:relative;
+			}
+			#refreshbtn
+			{
+				position:absolute;
+				bottom:0px;
+				right:0px;
+			}
+		</style>
+		
+		<Script>
+			
+			function getRandomNumber(min, max)
+			{
+				var rnd= Math.floor(Math.random()* (max-min+1) + min);
+				return rnd;
+			}
+			
+			function generateCaptchaCode()
+			{
+				
+				var specialChar="@#$%&*";
+			
+				var a=getRandomNumber(0,9);
+				var b=String.fromCharCode(getRandomNumber(97,122));
+				var c=String.fromCharCode(getRandomNumber(65,90));
+				var d=getRandomNumber(0,9);
+				var e=specialChar.charAt(getRandomNumber(0,5));
+				var f=String.fromCharCode(getRandomNumber(65,90));
+				
+				var code=a+""+b+""+c+""+d+""+e+""+f;
+				document.getElementById("captchacode").innerHTML=code;
+								
+			}
+			
+			function validateCaptcha()
+			{
+				var a=document.getElementById("txt").value;
+				var b=document.getElementById("captchacode").innerHTML;
+				if(a==b)
+				{
+					alert("Success");
+				}
+				else
+				{
+					alert("Invalid Captcha");
+				}
+			}
+			
+		</script>
+		
+	</head>
+	<body onload="generateCaptchaCode(); " oncopy="return false;" oncut="return false;" onpaste="return false;">
+	
+		<div id="captcha">
+			<span id="captchacode"></span>
+			<button onclick="generateCaptchaCode();" id="refreshbtn"> &#8635; </button>
+		</div>
+		
+		
+		
+		<hr/>
+		
+		Enter Above Captcha Code
+		<br/>
+		<input type="text" id="txt" />
+		<br/><br/>
+		
+		<button onclick="validateCaptcha();" >Validate</button>
+		
+	</body>
+</html>
